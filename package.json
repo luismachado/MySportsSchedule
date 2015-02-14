@@ -1,0 +1,14 @@
+{
+  "name": "MyReleases",
+  "main": "server.js",
+  "author"       : "Luis Machado",
+  "dependencies": {
+    "express" : "~4.5.1",
+    "request"    : "latest",
+    "cheerio"    : "latest",
+    "winston"    : "latest",
+    "fs"         : "latest",
+	  "body-parser" : "~1.4.2",
+	  "method-override" : "~2.0.2"
+  }
+}

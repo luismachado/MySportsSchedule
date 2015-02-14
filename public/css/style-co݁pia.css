@@ -1,0 +1,51 @@
+/*.table {
+	overflow: hidden;
+    border-radius: 10px;
+	background: #FFFFFF;
+}
+
+.table th {
+   text-align: center;
+   background-color : #00B4FF; 
+   color: #FFFFFF;
+}/*
+
+
+
+/*
+
+body{
+	background:url('http://www.cssdeck.com/uploads/media/items/0/0Rs78ic.gif');
+	color:#888;
+	padding:0;
+	margin:0;
+	font: 72.5% 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+}*/
+
+/*Container*/
+/*.container{
+	width:820px;
+	margin:30px auto;
+	padding:25px;
+	min-height:400px;
+	height:auto;	
+}
+.container h2 { margin-top:30px;}
+
+.box h3{
+	text-align:center;
+	position:relative;
+	top:80px;
+}*/
+
+/*
+.effect1{
+		-moz-border-radius: 10px;
+border-radius: 10px;
+	-webkit-box-shadow: 10px 10px 6px -6px #777;
+	   -moz-box-shadow: 10px 10px 6px -6px #777;
+	        box-shadow: 10px 10px 6px -6px #777;
+}*/
+
+.table tbody>tr>td.vert-align{
+    vertical-align: middle;
