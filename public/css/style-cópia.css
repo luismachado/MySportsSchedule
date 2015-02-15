@@ -19,6 +19,7 @@ table td.separator{
     font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
     text-align: center;
     color : #00B4CC ;
+    text-shadow: 0px 0px 40px #000;
 }
 
 .date-navbar {
@@ -26,6 +27,7 @@ table td.separator{
     text-align: center;
     color : #FFFFFF ;
     line-height: 30px;
+    text-shadow: 0px 0px 40px #000;
     font-size: 20px;
 }
 
@@ -144,7 +146,7 @@ table td.separator{
     padding-left: 50px;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 768px) {
     .navbar-centered .navbar-nav {
         float: none;
         text-align: center;

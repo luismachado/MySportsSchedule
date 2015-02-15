@@ -44,7 +44,11 @@ config.leaguesToShow =
     "Portugal": {title : "POR", competitions : [
                                                 "Portugal - Primeira Liga",
                                                 "Portugal - Taça da Liga"
-                                                ]}
+                                                ]},
+    "Europe": {title : "EUR", competitions : [
+                                                "Europe - UEFA Champions League",
+                                                "Europe - UEFA Europa League"
+                                                ]}                                                
 };
 
 config.competitionsToShow =
@@ -55,7 +59,9 @@ config.competitionsToShow =
     "Spain - Primera División" : "La Liga", 
     "Spain - Copa del Rey"     : "Copa Del Rey",
     "Portugal - Primeira Liga" : "Liga",
-    "Portugal - Taça da Liga"  : "Taça da Liga"
+    "Portugal - Taça da Liga"  : "Taça da Liga",
+    "Europe - UEFA Champions League" : "Champions League",
+    "Europe - UEFA Europa League" : "Europa League"
 };
 
 config.footballMatches = 

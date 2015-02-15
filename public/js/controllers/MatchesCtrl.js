@@ -1,7 +1,7 @@
 angular.module('MatchesCtrl', []).controller('MatchesController', function($scope, Matches) {
 	
 	$scope.currentPage = 0;
-	$scope.showAll = false;
+	$scope.showCondensed = false;
 
 	Matches.getMatches().success(function (response) {
 		$scope.today = response.today;
