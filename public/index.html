@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<base href="/">
 
 		<title>My Sports Schedule</title>
@@ -34,46 +35,29 @@
 		<link rel="icon" type="image/png" href="/imgs/favicon.png">
 	</head>
 
-	<body class="general" ng-app="sampleApp" ng-controller="MatchesController" ng-swipe-left="nextPage()" ng-swipe-right="prevPage()">	
+	<body class="general" ng-app="sampleApp" ng-controller="MatchesController" 
+			ng-swipe-left="nextPage()" ng-swipe-right="prevPage()"
+			ng-keyup="onKeyUp($event)">	
 		<!-- HEADER -->
 		<nav class="navbar navbar-inverted navbar-fixed-top normal shrink" role="navigation">
-			<div class="navbar-header">
-				<a class="navbar-brand">My Sports Schedule</a>
+			<div>
+				<span class="navbar-brand">My Sports Schedule</span>
 			</div>
 
-			<div class="col-md-6 col-md-offset-3 nav navbar-centered">
+			<div class="col-md-4 col-md-offset-4 nav navbar-centered">
 				<ul class="pager">
 					<li class="previous ng-class:{'disabled': currentPage == 0};">
 						<a href ng-click="prevPage()"><<</a>
 					</li>
 					<li class="disabled">
-						<i class="fa fa-2x date">{{currentDay.date}}</i>
+						<i class="fa fa-2x date-navbar">{{currentDay.date}}</i>
 					</li>
 					<li class="next ng-class:{'disabled': currentPage == 2};">
 						<a href ng-click="nextPage()">>></a>
 					</li>
 				</ul>
 			</div>
-		  
 		</nav>
-		<!-- HEADER -->
-		<!--<nav class="navbar navbar-inverted navbar-fixed-top">
-			<a class="navbar-brand">My Sports Schedule</a>
-			<div class="col-md-6 col-md-offset-3">
-				<ul class="navbar-brand-center">
-						<li class="previous ng-class:{'disabled': currentPage == 0};">
-							<a href ng-click="prevPage()"><<</a>
-						</li>
-						<li class="disabled">
-							<i class="fa fa-2x date">{{currentDay.date}}</i>
-						</li>
-						<li class="next ng-class:{'disabled': currentPage == 2};">
-							<a href ng-click="nextPage()">>></a>
-						</li>
-					</ul>
-			</div>
-		</nav>-->
-
 
 		<div class="container">
 			<div class="col-md-6 col-md-offset-3">
@@ -89,135 +73,139 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.POR.length == 0">
-				<div class="panel">
-					<div class="panel-heading header">
-								Portugal
-								<span class="sign">-</span>
-							</div>
-					<table class="table table-condensed">
-						<thead>
-						    <tr>
-								<th>Time</th>
-								<th colspan="3">Teams</th>
-								<th>Competition</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="item" align="center" ng-repeat="match in currentDay.POR">
-								<td>{{match.time}}</td>
-								<td align="right" class="team">{{match.homeTeam}}</td>
-								<td align="center" class="separator"> - </td>
-								<td align="left" class="team">{{match.awayTeam}}</td>
-								<td>{{match.competition}}</td>
-							</tr>
-						</tbody>
-					</table>
+			
+			<div class = "seperatedLeagues">
+				<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.POR.length == 0">
+					<div class="panel">
+						<div class="panel-heading header">
+									Portugal
+									<span class="sign">-</span>
+								</div>
+						<table class="table table-condensed">
+							<thead>
+							    <tr>
+									<th>Time</th>
+									<th colspan="3">Teams</th>
+									<th>Competition</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="item" align="center" ng-repeat="match in currentDay.POR">
+									<td>{{match.time}}</td>
+									<td align="right" class="team">{{match.homeTeam}}</td>
+									<td align="center" class="separator"> - </td>
+									<td align="left" class="team">{{match.awayTeam}}</td>
+									<td>{{match.competition}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.SPA.length == 0">
-				<div class="panel">
-					<div class="panel-heading header">
-								Spain
-								<span class="sign">-</span>
-							</div>
-					<table class="table table-condensed">
-						<thead>
-						    <tr>
-								<th>Time</th>
-								<th colspan="3">Teams</th>
-								<th>Competition</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="item" align="center" ng-repeat="match in currentDay.SPA">
-								<td>{{match.time}}</td>
-								<td align="right" class="team">{{match.homeTeam}}</td>
-								<td align="center" class="separator"> - </td>
-								<td align="left" class="team">{{match.awayTeam}}</td>
-								<td>{{match.competition}}</td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.SPA.length == 0">
+					<div class="panel">
+						<div class="panel-heading header">
+									Spain
+									<span class="sign">-</span>
+								</div>
+						<table class="table table-condensed">
+							<thead>
+							    <tr>
+									<th>Time</th>
+									<th colspan="3">Teams</th>
+									<th>Competition</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="item" align="center" ng-repeat="match in currentDay.SPA">
+									<td>{{match.time}}</td>
+									<td align="right" class="team">{{match.homeTeam}}</td>
+									<td align="center" class="separator"> - </td>
+									<td align="left" class="team">{{match.awayTeam}}</td>
+									<td>{{match.competition}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.ENG.length == 0">
-				<div class="panel">
-					<div class="panel-heading header">
-								England
-								<span class="sign">-</span>
-							</div>
-					<table class="table table-condensed">
-						<thead>
-						    <tr>
-								<th>Time</th>
-								<th colspan="3">Teams</th>
-								<th>Competition</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="item" align="center" ng-repeat="match in currentDay.ENG">
-								<td>{{match.time}}</td>
-								<td align="right" class="team">{{match.homeTeam}}</td>
-								<td align="center" class="separator"> - </td>
-								<td align="left" class="team">{{match.awayTeam}}</td>
-								<td>{{match.competition}}</td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.ENG.length == 0">
+					<div class="panel">
+						<div class="panel-heading header">
+									England
+									<span class="sign">-</span>
+								</div>
+						<table class="table table-condensed">
+							<thead>
+							    <tr>
+									<th>Time</th>
+									<th colspan="3">Teams</th>
+									<th>Competition</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="item" align="center" ng-repeat="match in currentDay.ENG">
+									<td>{{match.time}}</td>
+									<td align="right" class="team">{{match.homeTeam}}</td>
+									<td align="center" class="separator"> - </td>
+									<td align="left" class="team">{{match.awayTeam}}</td>
+									<td>{{match.competition}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.EUR.length == 0">
-				<div class="panel">
-					<div class="panel-heading header">
-								Europe
-								<span class="sign">-</span>
-							</div>
-					<table class="table table-condensed">
-						<thead>
-						    <tr>
-								<th>Time</th>
-								<th colspan="3">Teams</th>
-								<th>Competition</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="item" align="center" ng-repeat="match in currentDay.EUR">
-								<td>{{match.time}}</td>
-								<td align="right" class="team">{{match.homeTeam}}</td>
-								<td align="center" class="separator"> - </td>
-								<td align="left" class="team">{{match.awayTeam}}</td>
-								<td>{{match.competition}}</td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.EUR.length == 0">
+					<div class="panel">
+						<div class="panel-heading header">
+									Europe
+									<span class="sign">-</span>
+								</div>
+						<table class="table table-condensed">
+							<thead>
+							    <tr>
+									<th>Time</th>
+									<th colspan="3">Teams</th>
+									<th>Competition</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="item" align="center" ng-repeat="match in currentDay.EUR">
+									<td>{{match.time}}</td>
+									<td align="right" class="team">{{match.homeTeam}}</td>
+									<td align="center" class="separator"> - </td>
+									<td align="left" class="team">{{match.awayTeam}}</td>
+									<td>{{match.competition}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.NBA.length == 0">
-				<div class="panel">
-					<div class="panel-heading header">
-								NBA
-								<span class="sign">-</span>
-							</div>
-					<table class="table table-condensed">
-						<thead>
-						    <tr>
-								<th>Time</th>
-								<th colspan="3">Teams</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="item" align="center" ng-repeat="match in currentDay.NBA">
-								<td>{{match.time}}</td>
-								<td align="right" class="team">{{match.homeTeam}}</td>
-								<td align="center" class="separator"> @ </td>
-								<td align="left" class="team">{{match.awayTeam}}</td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.NBA.length == 0">
+					<div class="panel">
+						<div class="panel-heading header">
+									NBA
+									<span class="sign">-</span>
+								</div>
+						<table class="table table-condensed">
+							<thead>
+							    <tr>
+									<th>Time</th>
+									<th colspan="3">Teams</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="item" align="center" ng-repeat="match in currentDay.NBA">
+									<td>{{match.time}}</td>
+									<td align="right" class="team">{{match.homeTeam}}</td>
+									<td align="center" class="separator"> @ </td>
+									<td align="left" class="team">{{match.awayTeam}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
+		
 		<script src="js/custom.js"></script>
 		<script>
 			$(window).scroll(function() {

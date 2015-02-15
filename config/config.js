@@ -6,8 +6,11 @@ var config = {};
 config.emptyMatches = 
 {
 		today :    {POR : [], SPA : [], ENG : [], EUR : [], NBA : []},
+        todayAll : [],
 		tomorrow : {POR : [], SPA : [], ENG : [], EUR : [], NBA : []},
-		after :    {POR : [], SPA : [], ENG : [], EUR : [], NBA : []}
+        tomorrowAll : [],
+		after :    {POR : [], SPA : [], ENG : [], EUR : [], NBA : [],
+        afterAll : []}
 };     
 
 //----------------------------------------------------------

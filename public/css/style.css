@@ -22,6 +22,15 @@ table td.separator{
     text-shadow: 0px 0px 40px #000;
 }
 
+.date-navbar {
+    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+    text-align: center;
+    color : #FFFFFF ;
+    line-height: 30px;
+    text-shadow: 0px 0px 40px #000;
+    font-size: 20px;
+}
+
 .panel {
     font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
 }
@@ -57,18 +66,16 @@ table td.separator{
 .navbar-brand
 {
     position: absolute;
-    width: 100%;
-    left: 0;
-    text-align: left;
+    text-align: center;
     margin: auto;
     color : #FFFFFF; 
-    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial;
     font-size: 20px;
     
 }
 
 .normal {
-    height: 73px;
+    height: 70px;
     -webkit-transition: 0.5s;
     -moz-transition: 0.5s;
     -ms-transition: 0.5s;
@@ -76,15 +83,6 @@ table td.separator{
     -webkit-box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
-}
-
-.normal a.navbar-brand
-{
-    line-height: 40px;
-    -webkit-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -ms-transition: 0.5s;
-    transition: 0.5s;
 }
 
 .shrink {
@@ -98,8 +96,19 @@ table td.separator{
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
 }
 
-.shrink a.navbar-brand
+.normal span.navbar-brand
 {
+    display : none;  
+    line-height: 40px;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.shrink span.navbar-brand
+{
+    display : inline; 
     line-height: 20px;
     -webkit-transition: 0.5s;
     -moz-transition: 0.5s;
@@ -107,30 +116,9 @@ table td.separator{
     transition: 0.5s;
 }
 
-.shrink a.navbar-header {
-    display : inline;
-}
-
-.normal a.navbar-header {
-    display : none;    
-}
-
-.shrink div.navbar-centered
-{
-    display : none;
-    -webkit-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -ms-transition: 0.5s;
-    transition: 0.5s;
-}
-
-.normal div.navbar-centered
-{
-    display : inline;
-    -webkit-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -ms-transition: 0.5s;
-    transition: 0.5s;
+.navbar-centered {
+    padding-right: 50px;
+    padding-left: 50px;
 }
 
 @media (min-width: 768px) {
@@ -149,12 +137,13 @@ table td.separator{
     }
 }
 
-.title {
-    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
-    text-align: center;
-    font-size: 50px;
-    color : #00B4CC;
-    text-shadow: 0px 0px 40px #000;
+nav.shrink div.navbar-centered
+{
+    display : none;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    transition: 0.5s;
 }
 
 body {

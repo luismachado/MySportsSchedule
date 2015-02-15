@@ -9,10 +9,41 @@ var nbaScrapper = require('./nba.js');
 var todayDate;
 
 var jsonMatches = { today :    {POR : [], SPA : [], ENG : [], EUR : [], NBA : []},
-                  	tomorrow : {POR : [], SPA : [], ENG : [], EUR : [], NBA : []},
-                    after :    {POR : [], SPA : [], ENG : [], EUR : [], NBA : []}};
+                    todayAll : [],
+                    tomorrow : {POR : [], SPA : [], ENG : [], EUR : [], NBA : []},
+                    tomorrowAll : [],
+                    after :    {POR : [], SPA : [], ENG : [], EUR : [], NBA : [],
+                    afterAll : []}};
 
 var operationsRemaining = 0;
+
+function sortPerTime(matchA, matchB) {
+    return Date.parse('01/01/2011 ' + matchA.time + ':00') > Date.parse('01/01/2011 ' + matchB.time + ':00');
+}
+
+function aggregateDays() {
+    var todayAll    = [];
+    var tomorrowAll = [];
+    var afterAll    = [];
+    for (var key in jsonMatches.today) {
+        todayAll = todayAll.concat(jsonMatches.today[key]);
+    }
+    for (var key in jsonMatches.tomorrow) {
+        tomorrowAll = tomorrowAll.concat(jsonMatches.tomorrow[key]);
+    }
+    for (var key in jsonMatches.after) {
+        afterAll = afterAll.concat(jsonMatches.after[key]);
+    }  
+
+    todayAll.sort(sortPerTime);
+    tomorrowAll.sort(sortPerTime);
+    afterAll.sort(sortPerTime);
+
+    jsonMatches.todayAll    = todayAll;
+    jsonMatches.tomorrowAll = tomorrowAll;
+    jsonMatches.afterAll    = afterAll; 
+}
+
 
 function saveNBASchedule (matches) {
    
@@ -27,9 +58,12 @@ function saveNBASchedule (matches) {
 
     if(--operationsRemaining == 0) {
         addDates();
+        aggregateDays();
         saveMatchesToFile();
     }
 }
+
+
 
 function saveFootballSchedule (matches) {
 
@@ -46,15 +80,16 @@ function saveFootballSchedule (matches) {
 
     if(--operationsRemaining == 0) {
         addDates();
+        aggregateDays();
         saveMatchesToFile();
     }
 }
 
 function addDates() {
 
-    jsonMatches.today.date = todayDate.format("MMMM Do YYYY");
-    jsonMatches.tomorrow.date = todayDate.clone().add(1, 'days').format("MMMM Do YYYY");;
-    jsonMatches.after.date = todayDate.clone().add(2, 'days').format("MMMM Do YYYY");;
+    jsonMatches.today.date = todayDate.format("MMM Do YYYY");
+    jsonMatches.tomorrow.date = todayDate.clone().add(1, 'days').format("MMM Do YYYY");;
+    jsonMatches.after.date = todayDate.clone().add(2, 'days').format("MMM Do YYYY");;
 }    
 
 function saveMatchesToFile() {

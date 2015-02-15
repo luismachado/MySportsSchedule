@@ -63,9 +63,12 @@ exports.obtainFootballMatchesDay = function obtainFootballMatchesDay(todayDate, 
                         var matchData = $(matchList[matchListIdx]);
                         var gameTime = matchData.find('td.score div').attr('title').replace(' GMT','');
                         if(gameTime.match('[0-9][0-9]:[0-9][0-9]')) {
+                            var matchDate = date.clone();
+                            matchDate.hour(Number(gameTime.substring(0,2)));
+                            matchDate.minute(Number(gameTime.substring(2,2)));
                             var match =
                                 {
-                                    time : gameTime,
+                                    time : matchDate.format('HH:mm'),
                                     competition : result.competition,
                                     homeTeam : matchData.find('td.teamHome a').text(),
                                     awayTeam : matchData.find('td.teamAway a').text()

@@ -34,6 +34,7 @@ exports.obtainNBAMatchesDay = function obtainNBAMatchesDay (todayDate, dayDiff, 
 
                 	var nbaMatch =
                         {
+                            competition : "NBA",
                             time : gameDateGMT.format('HH:mm'),
                             homeTeam : teams.substring(0,3),
                             awayTeam : teams.substring(3,6)
