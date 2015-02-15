@@ -35,25 +35,25 @@ table td.separator{
 
 .panel-heading {
     background-color : #00B4CC;
-    color : #000000;
+    color : #FFFFFF; 
 }
 
 .pager li>a {
     background-color : #00B4CC;
     border-color : #00B4CC;
-    color : #000000;
+    color : #FFFFFF; 
 }
 
 .pager li>a:hover {
     background-color : #00DFFC;
     border-color : #00DFFC;
-    color : #000000;
+    color : #FFFFFF; 
 }
 
 .pager li>a:focus {
     background-color : #00B4CC;
     border-color : #00B4CC;
-    color : #000000;
+    color : #FFFFFF; 
 }
 
 .navbar {
@@ -174,7 +174,9 @@ body {
     padding-top: 70px;
 }
 
-
+.panel-heading {
+    color : #FFFFFF; 
+}
 
 .panel-heading .country { float:left }
 .panel-heading .sign { float:right }
