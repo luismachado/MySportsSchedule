@@ -36,7 +36,7 @@
 
 	<body class="general" ng-app="sampleApp" ng-controller="MatchesController" ng-swipe-left="nextPage()" ng-swipe-right="prevPage()">	
 		<!-- HEADER -->
-		<nav class="navbar navbar-inverted navbar-fixed-top" role="navigation">
+		<nav class="navbar navbar-inverted navbar-fixed-top normal shrink" role="navigation">
 			<div class="navbar-header">
 				<a class="navbar-brand">My Sports Schedule</a>
 			</div>
@@ -221,13 +221,13 @@
 		<script src="js/custom.js"></script>
 		<script>
 			$(window).scroll(function() {
-				if ($(document).scrollTop() < 100) {
+				if ($(document).scrollTop() < 60) {
 					$('.navbar').addClass('shrink');
-					$('.navbar').removeClass('normal');
+					/*$('.navbar div.navbar-centered').css({display : "none"})*/
 				}
 				else {
 					$('.navbar').removeClass('shrink');
-					$('.navbar').addClass('normal');
+					/*$('.navbar div.navbar-centered').css({display : "inline"})	*/
 				}
 			});
 		</script>
