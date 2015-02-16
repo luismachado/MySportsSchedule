@@ -66,17 +66,16 @@ table td.separator{
     text-align: center;
     margin: auto;
     color : #FFFFFF; 
- 
     font-size: 20px;
     
 }
 
-.normal .navbar-right
+.normal .navbar-to-right
 {
     display : none;    
 }
 
-.shrink .navbar-right
+.shrink .navbar-to-right
 {
     display : inline;    
 }
@@ -86,15 +85,15 @@ table td.separator{
     color : #FFFFFF; 
     font-size: 15px;
     line-height: 49px;
+    padding-top: 10px;
     padding-right: 10px
 }
-.navbar-right
+.navbar-to-right
 {
     background-color : #00B4CC;
     border-color : #00B4CC;
     color : #000000;
     line-height: 28px;
-    padding-right: 20px;
 }
 
 .normal {
@@ -144,19 +143,51 @@ table td.separator{
     padding-left: 50px;
 }
 
-@media (min-width: 500px) {
-    .navbar-centered .navbar-nav {
+@media (min-width: 400px) and (max-width: 768px) {
+    .navbar-to-right .navbar-nav {
         float: none;
-        text-align: center;
+        text-align: right;
     }
-    .navbar-centered .navbar-nav > li {
+    .navbar-to-right .navbar-nav > li {
         float: none;
     }
-    .navbar-centered .nav > li {
+    .navbar-to-right .nav > li {
         display: inline;
     }
-    .navbar-centered .nav > li > a {
+    .navbar-to-right .nav > li > div {
+        display: inline;
+        padding-top: 40px;
+    }
+    .navbar-to-right .nav > li > div > label {
         display: inline-block;
+    }
+    .navbar-to-right .nav > li > a {
+        display: inline-block;
+    }
+}
+
+@media (min-width: 768px){
+    .navbar-to-right .navbar-nav {
+        float: none;
+        text-align: right;
+    }
+    .navbar-to-right .navbar-nav > li {
+        float: none;
+    }
+    .navbar-to-right .nav > li {
+        display: inline;
+    }
+    .navbar-to-right .nav > li > div {
+        display: inline;
+    }
+    .navbar-to-right .nav > li > div > label {
+        display: inline-block;
+    }
+    .navbar-to-right .nav > li > a {
+        display: inline-block;
+    }
+    .switch {
+        padding-top: 20px;
     }
 }
 

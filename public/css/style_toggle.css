@@ -10,7 +10,7 @@
 }
 
 #wrapper {
-  min-width: 600px;
+  min-width: 200px;
 }
 
 .switch {
@@ -31,7 +31,7 @@
   padding: 10px;
 }
 .settings .question {
-  width: 600px;
+  width: 200px;
   font-family: "Roboto Slab", serif;
   font-size: 20px;
 }

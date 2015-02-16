@@ -12,8 +12,8 @@
 		<link rel="stylesheet" href="libs/Bootflat/css/bootstrap.min.css">
 		<link rel="stylesheet" href="libs/Bootflat/css/site.min.css">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/style_toggle.css">
+		<link rel="stylesheet" href="css/style.css">
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
 
 		<!-- JS -->
@@ -23,8 +23,6 @@
 		<script src="libs/jquery/dist/jquery.min.js"></script>
 		<script src="libs/Bootflat/js/bootstrap.min.js"></script>
 		<script src="libs/Bootflat/js/site.min.js"></script>
-		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="libs/bootstrap/js/tab.js"></script>
 
 		<!-- ANGULAR CUSTOM -->
 		<script src="js/controllers/MatchesCtrl.js"></script>
@@ -41,7 +39,11 @@
 			ng-keyup="onKeyUp($event)">	
 		<!-- HEADER -->
 		<nav class="navbar navbar-inverted navbar-fixed-top normal shrink" role="navigation">
-			<div>
+			<div class = "navbar-header">
+				<!--<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+	                <span class="sr-only">Toggle navigation</span>
+	                <span class="icon-bar"></span>
+            	</button>-->
 				<span class="navbar-brand">My Sports Schedule</span>
 			</div>
 
@@ -58,18 +60,20 @@
 					</li>
 				</ul>
 			</div>
-			<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav navbar-right">
-				<li>
-        			<span class="switch-label">Condense Results?</span>
-				</li>
-				<li>
-					<div class="switch">
-						<input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" ng-model="condense">
-						<label for="cmn-toggle-1"></label>
-					</div>
-				</li>
-			</ul>
+			<div class="nav navbar-to-right">
+			<!--<div id="navbarCollapse" class="collapse navbar-collapse">-->
+				<ul class="navbar-nav nav">
+					<li>
+	        			<a class="switch-label">Condense Results?</a>
+					</li>
+					<li>
+						<div class="switch">
+							<input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" ng-model="condense">
+							<label for="cmn-toggle-1"></label>
+						</div>
+					</li>
+				</ul>
+			<!--</div>-->
 			</div>
 		</nav>
 
