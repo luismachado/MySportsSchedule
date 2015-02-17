@@ -1,14 +1,16 @@
 {
-  "name": "MyReleases",
+  "name": "MySportsSchedule",
   "main": "server.js",
   "author"       : "Luis Machado",
   "dependencies": {
-    "express" : "~4.5.1",
-    "request"    : "latest",
     "cheerio"    : "latest",
+    "express" : "~4.5.1",
+    "method-override" : "~2.0.2",
+    "moment-timezone" : "latest",
+    "request"    : "latest",
     "winston"    : "latest",
     "fs"         : "latest",
 	  "body-parser" : "~1.4.2",
-	  "method-override" : "~2.0.2"
+    "cron" : "latest"
   }
 }

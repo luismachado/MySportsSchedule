@@ -6,3 +6,13 @@ $('.header').click(function () {
         });
     });
 });
+
+
+$(window).scroll(function() {
+	if ($(document).scrollTop() < 60) {
+		$('.navbar').addClass('shrink');
+	}
+	else {
+		$('.navbar').removeClass('shrink');
+	}
+});

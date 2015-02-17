@@ -3,6 +3,7 @@ var moment  = require('moment-timezone');
 var winston = require('winston');
 var fs      = require('fs');
 var app     = express();
+var CronJob = require('cron').CronJob;
 var configs = require('../config/config');
 var footballScraper = require('./football');
 var nbaScrapper = require('./nba.js');
@@ -42,8 +43,6 @@ function aggregateDays() {
     jsonMatches.todayAll    = todayAll;
     jsonMatches.tomorrowAll = tomorrowAll;
     jsonMatches.afterAll    = afterAll; 
-
-    console.log(jsonMatches.afterAll);
 }
 
 function addDates() {
@@ -104,7 +103,7 @@ function saveMatchesToFile(callback) {
           return;
         }
         winston.info('Matches updated and saved to file');
-        callback.send("Match List Updated.")
+        if(callback) callback.send("Match List Updated.")
     });
 }
 
@@ -129,23 +128,41 @@ function eraseMatches() {
     //winston.info("Matches Erased");
 }
 
+exports.updateMatches  = function updateMatches(res) {
+
+    
+    operationsRemaining = 2;
+    eraseMatches();
+
+    todayDate = moment().add(1,'days');
+    footballScraper.obtainFootballMatchesDay(todayDate, 0, JSON.parse(JSON.stringify(configs.footballMatches)), saveFootballSchedule, res);
+    nbaScrapper.obtainNBAMatchesDay(todayDate, -1, JSON.parse(JSON.stringify(configs.nbaMatches)), saveNBASchedule, res);  
+}
+
+
+
 module.exports = function(app) {
+
+    var job = new CronJob({
+        cronTime: '00 55 23 * * 1-7',
+        onTick: function() {
+            winston.info("Scheduled Match Refresh.");
+            exports.updateMatches(null);
+        },
+        start: false,
+        timeZone: "Europe/London"
+    });
+    job.start();
 
     // Get Matches
     app.get('/MySportsSchedule/RefreshGames', function(req, res){
-
-        winston.info("Refresh Games.");
-        operationsRemaining = 2;
-        eraseMatches();
-
-        todayDate = moment().add(1,'days');
-        footballScraper.obtainFootballMatchesDay(todayDate, 0, JSON.parse(JSON.stringify(configs.footballMatches)), saveFootballSchedule, res);
-        nbaScrapper.obtainNBAMatchesDay(todayDate, -1, JSON.parse(JSON.stringify(configs.nbaMatches)), saveNBASchedule, res);    
+        winston.info("Manual Match Refresh.");
+        exports.updateMatches(res);
     });
 
     // Get JSON for Matches
     app.get('/MySportsSchedule/GetGames', function(req, res){
-        winston.info("Getting Games.");
+        winston.info("Get Games - Request from " + req.ip);
         res.json(jsonMatches);
     });
 

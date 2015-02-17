@@ -11,8 +11,6 @@
     vertical-align: middle;
 }
 
-
-
 table td.team{
     width:49%;
 }
@@ -76,7 +74,6 @@ table td.separator{
 {
     display : inline-flex; 
     display : -webkit-inline-flex;
-
 }
 
 .navbar-default .navbar-nav>li>a{
@@ -95,16 +92,6 @@ table td.separator{
     -moz-box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
 }
-
-/*.normal button.collapsed
-{
-    display : none;    
-}
-
-.shrink button.collapsed
-{
-    display : inline;    
-}*/
 
 .shrink .switch-label
 {
@@ -154,15 +141,13 @@ table td.separator{
 
 @media (max-width: 767px) {
 
-.normal button.navbar-toggle {
-    display : none;
+    .normal button.navbar-toggle {
+        display : none;
+    }
+    .shrink button.navbar-toggle {
+        display : inline;
+    }
 }
-.shrink button.navbar-toggle {
-    display : inline;
-}
-
-}
-
 
 .normal a.navbar-brand
 {
@@ -188,54 +173,6 @@ table td.separator{
     padding-right: 50px;
     padding-left: 50px;
 }
-
-/*@media (min-width: 400px) and (max-width: 768px) {
-    .navbar-to-right .navbar-nav {
-        float: none;
-        text-align: right;
-    }
-    .navbar-to-right .navbar-nav > li {
-        float: none;
-    }
-    .navbar-to-right .nav > li {
-        display: inline;
-    }
-    .navbar-to-right .nav > li > div {
-        display: inline;
-        padding-top: 40px;
-    }
-    .navbar-to-right .nav > li > div > label {
-        display: inline-block;
-    }
-    .navbar-to-right .nav > li > a {
-        display: inline-block;
-    }
-}
-
-@media (min-width: 768px){
-    .navbar-to-right .navbar-nav {
-        float: none;
-        text-align: right;
-    }
-    .navbar-to-right .navbar-nav > li {
-        float: none;
-    }
-    .navbar-to-right .nav > li {
-        display: inline;
-    }
-    .navbar-to-right .nav > li > div {
-        display: inline;
-    }
-    .navbar-to-right .nav > li > div > label {
-        display: inline-block;
-    }
-    .navbar-to-right .nav > li > a {
-        display: inline-block;
-    }
-    .switch {
-        padding-top: 20px;
-    }
-}*/
 
 nav.shrink div.navbar-centered
 {
