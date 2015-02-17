@@ -40,7 +40,7 @@ function saveMatch(match, leagueTitle, dayDiff, footballMatches) {
     return footballMatches;
 }
 
-exports.obtainFootballMatchesDay = function obtainFootballMatchesDay(todayDate, dayDiff, footballMatches, callback) {
+exports.obtainFootballMatchesDay = function obtainFootballMatchesDay(todayDate, dayDiff, footballMatches, callback, msgCallback) {
 
     var date = todayDate.clone().add(dayDiff,'days');
     var url = config.football_url.replace('YYYY', date.format('YYYY')).replace('MM', date.format('MM'))
@@ -80,9 +80,9 @@ exports.obtainFootballMatchesDay = function obtainFootballMatchesDay(todayDate, 
                 }
             }
             if(dayDiff < 2)
-            	obtainFootballMatchesDay(todayDate, ++dayDiff, footballMatches, callback);
+            	obtainFootballMatchesDay(todayDate, ++dayDiff, footballMatches, callback, msgCallback);
             else {
-            	callback(footballMatches);
+            	callback(footballMatches, msgCallback);
             }
         }
     });

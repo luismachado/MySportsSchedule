@@ -42,10 +42,19 @@ function aggregateDays() {
     jsonMatches.todayAll    = todayAll;
     jsonMatches.tomorrowAll = tomorrowAll;
     jsonMatches.afterAll    = afterAll; 
+
+    console.log(jsonMatches.afterAll);
+}
+
+function addDates() {
+
+    jsonMatches.today.date = todayDate.format("MMM Do YYYY");
+    jsonMatches.tomorrow.date = todayDate.clone().add(1, 'days').format("MMM Do YYYY");;
+    jsonMatches.after.date = todayDate.clone().add(2, 'days').format("MMM Do YYYY");;
 }
 
 
-function saveNBASchedule (matches) {
+function saveNBASchedule (matches, callback) {
    
     for (var key in matches.today)
         jsonMatches.today[key] = matches.today[key];
@@ -54,18 +63,18 @@ function saveNBASchedule (matches) {
     for (var key in matches.after)
         jsonMatches.after[key] = matches.after[key];
 
-    winston.info("NBA Schedule Saved.");
+    //winston.info("NBA Schedule Saved.");
 
     if(--operationsRemaining == 0) {
-        addDates();
         aggregateDays();
-        saveMatchesToFile();
+        addDates();
+        saveMatchesToFile(callback);
     }
 }
 
 
 
-function saveFootballSchedule (matches) {
+function saveFootballSchedule (matches, callback) {
 
     for (var key in matches.today)
         jsonMatches.today[key] = matches.today[key];
@@ -76,23 +85,16 @@ function saveFootballSchedule (matches) {
     for (var key in matches.after)
         jsonMatches.after[key] = matches.after[key];
 
-    winston.info("Football Schedule Saved.");
+    //winston.info("Football Schedule Saved.");
 
     if(--operationsRemaining == 0) {
-        addDates();
         aggregateDays();
-        saveMatchesToFile();
+        addDates();
+        saveMatchesToFile(callback);
     }
-}
-
-function addDates() {
-
-    jsonMatches.today.date = todayDate.format("MMM Do YYYY");
-    jsonMatches.tomorrow.date = todayDate.clone().add(1, 'days').format("MMM Do YYYY");;
-    jsonMatches.after.date = todayDate.clone().add(2, 'days').format("MMM Do YYYY");;
 }    
 
-function saveMatchesToFile() {
+function saveMatchesToFile(callback) {
     var matchesData = JSON.stringify(jsonMatches);
 
     fs.writeFile('./config/data.json', matchesData, function (err) {
@@ -101,7 +103,8 @@ function saveMatchesToFile() {
           winston.warn(err.message);
           return;
         }
-        winston.info('Matches saved successfully to file');
+        winston.info('Matches updated and saved to file');
+        callback.send("Match List Updated.")
     });
 }
 
@@ -122,8 +125,8 @@ function loadMatchesFromFile() {
 
 function eraseMatches() {
 
-    jsonMatches = configs.emptyMatches;    
-    winston.info("Matches Erased");
+    jsonMatches = JSON.parse(JSON.stringify(configs.emptyMatches));
+    //winston.info("Matches Erased");
 }
 
 module.exports = function(app) {
@@ -136,16 +139,8 @@ module.exports = function(app) {
         eraseMatches();
 
         todayDate = moment().add(1,'days');
-        footballScraper.obtainFootballMatchesDay(todayDate, 0, configs.footballMatches, saveFootballSchedule);
-        nbaScrapper.obtainNBAMatchesDay(todayDate, -1, configs.nbaMatches, saveNBASchedule);    
-
-        res.send("Refreshing...")
-    });
-
-    // Empty Matches JSON
-    app.get('/MySportsSchedule/Erase', function(req, res){
-        eraseMatches();
-        res.send("Matches Erased");
+        footballScraper.obtainFootballMatchesDay(todayDate, 0, JSON.parse(JSON.stringify(configs.footballMatches)), saveFootballSchedule, res);
+        nbaScrapper.obtainNBAMatchesDay(todayDate, -1, JSON.parse(JSON.stringify(configs.nbaMatches)), saveNBASchedule, res);    
     });
 
     // Get JSON for Matches

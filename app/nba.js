@@ -14,7 +14,7 @@ function buildDateAndTimeGMT(date, timeEST) {
     return dateEST.clone().tz("Europe/London");
 }
 
-exports.obtainNBAMatchesDay = function obtainNBAMatchesDay (todayDate, dayDiff, nbaMatches, callback) {
+exports.obtainNBAMatchesDay = function obtainNBAMatchesDay (todayDate, dayDiff, nbaMatches, callback, msgCallback) {
 
 	var date = todayDate.clone().add(dayDiff,'days');
     var url = config.nba_url_start + date.format('YYYY/MM/DD') + config.nba_url_end;
@@ -72,9 +72,9 @@ exports.obtainNBAMatchesDay = function obtainNBAMatchesDay (todayDate, dayDiff, 
                 }
             }
             if(dayDiff < 2)
-            	obtainNBAMatchesDay(todayDate, dayDiff+1, nbaMatches, callback);
+            	obtainNBAMatchesDay(todayDate, dayDiff+1, nbaMatches, callback, msgCallback);
             else {
-            	callback(nbaMatches);
+            	callback(nbaMatches, msgCallback);
             }
         }
 
