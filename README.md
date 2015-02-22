@@ -7,3 +7,7 @@ Football matches are obtained through parse and builds info on Portuguese, Engli
 NBA matches, on the other hand, resorts to a public API that returns the schedule in JSON.
 
 The frontend uses AngularJS and Bootflat.
+
+To Install:
+npm install
+bower install
