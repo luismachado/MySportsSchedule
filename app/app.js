@@ -19,7 +19,7 @@ var jsonMatches = { today :    {POR : [], SPA : [], ENG : [], EUR : [], NBA : []
 var operationsRemaining = 0;
 
 function sortPerTime(matchA, matchB) {
-    return Date.parse('01/01/2011 ' + matchA.time + ':00') > Date.parse('01/01/2011 ' + matchB.time + ':00');
+    return Date.parse('01/01/2011 ' + matchA.time + ':00') - Date.parse('01/01/2011 ' + matchB.time + ':00');
 }
 
 function aggregateDays() {
