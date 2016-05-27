@@ -1,16 +1,17 @@
 {
   "name": "MySportsSchedule",
   "main": "server.js",
-  "author"       : "Luis Machado",
+  "author": "Luis Machado",
   "dependencies": {
-    "cheerio"    : "latest",
-    "express" : "~4.5.1",
-    "method-override" : "~2.0.2",
-    "moment-timezone" : "latest",
-    "request"    : "latest",
-    "winston"    : "latest",
-    "fs"         : "latest",
-	  "body-parser" : "~1.4.2",
-    "cron" : "latest"
+    "body-parser": "~1.4.2",
+    "checksum": "^0.1.1",
+    "cheerio": "latest",
+    "cron": "latest",
+    "express": "~4.5.1",
+    "fs": "latest",
+    "method-override": "~2.0.2",
+    "moment-timezone": "latest",
+    "request": "latest",
+    "winston": "latest"
   }
 }

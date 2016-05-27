@@ -1,13 +1,3 @@
-$('.header').click(function () {
-    var $this = $(this);
-    $(this).nextUntil('div.header').slideToggle(100).promise().done(function () {
-        $this.find('span').text(function (_, value) {
-            return value == '-' ? '+' : '-'
-        });
-    });
-});
-
-
 $(window).scroll(function() {
 	if ($(document).scrollTop() < 60) {
 		$('.navbar').addClass('shrink');
@@ -15,4 +5,9 @@ $(window).scroll(function() {
 	else {
 		$('.navbar').removeClass('shrink');
 	}
+});
+
+//Also save configs if modal is closed by pressing outside ou on the X
+$('#myModal').on('hidden.bs.modal', function (e) {
+		angular.element(document.getElementById('my_sports_schedule')).scope().saveConfig();
 });

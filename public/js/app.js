@@ -1,1 +1,1 @@
-angular.module('sampleApp', ['ngRoute', 'ngTouch', 'appRoutes', 'MatchesCtrl', 'MatchesService']);
+angular.module('sampleApp', ['ngRoute', 'ngTouch','angular-carousel', 'appRoutes', 'MatchesCtrl', 'MatchesService']);

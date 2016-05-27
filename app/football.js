@@ -4,6 +4,7 @@ var cheerio = require('cheerio');
 var moment  = require('moment-timezone');
 var app     = express();
 var config  = require('../config/config');
+var winston = require('winston');
 
 
 function relevantCompetition (competition) {
@@ -14,26 +15,30 @@ function relevantCompetition (competition) {
         var competitionName = competition.find('td a.seasonLink').text();
         
         if(leagueInfo.competitions.indexOf(competitionName) != -1) {
-            return competitionInfo = {leagueTitle : leagueInfo.title,
-                                   competition : config.competitionsToShow[competitionName],
-                                   code : competition.find('td a.seasonDetails').attr('data-sectionid')};                                              
+            return competitionInfo =
+                                {
+                                    leagueTitle : leagueName,
+                                    competition : config.competitionsToShow[competitionName],
+                                    code : competition.find('td a.seasonDetails').attr('data-sectionid'),
+                                    visible : leagueInfo.visible
+                                };                                              
         }
     }
 
     return 0;
 }
 
-function saveMatch(match, leagueTitle, dayDiff, footballMatches) {
+function saveMatch(match, dayDiff, footballMatches) {
 
 	switch (dayDiff) {
 		case 0 :
-			footballMatches.today[leagueTitle].push(match);
+			footballMatches.today.matches.push(match);
 			break;
 		case 1  :
-			footballMatches.tomorrow[leagueTitle].push(match);
+			footballMatches.tomorrow.matches.push(match);
 			break;
 		case 2  :
-			footballMatches.after[leagueTitle].push(match);
+			footballMatches.after.matches.push(match);
 			break;
 	}
 
@@ -66,12 +71,14 @@ exports.obtainFootballMatchesDay = function obtainFootballMatchesDay(todayDate, 
                             var match =
                                 {
                                     time : gameTime,
+                                    league : result.leagueTitle,
                                     competition : result.competition,
                                     homeTeam : matchData.find('td.teamHome a').text(),
-                                    awayTeam : matchData.find('td.teamAway a').text()
+                                    awayTeam : matchData.find('td.teamAway a').text(),
+                                    visible : result.visible
                                 };
 
-                            footballMatches = saveMatch(match, result.leagueTitle, dayDiff, footballMatches);
+                            footballMatches = saveMatch(match, dayDiff, footballMatches);
                         }
                     }
                 }

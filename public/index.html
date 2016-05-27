@@ -5,252 +5,200 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 		<base href="/">
-
 		<title>My Sports Schedule</title>
-
 		<!-- CSS -->
-		<link rel="stylesheet" href="libs/Bootflat/css/bootstrap.min.css">
-		<link rel="stylesheet" href="libs/Bootflat/css/site.min.css">
+		<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="libs/angular-carousel/dist/angular-carousel.css"  type="text/css" />
 		<link rel="stylesheet" href="css/style_toggle.css">
 		<link rel="stylesheet" href="css/style.css">
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
-
 		<!-- JS -->
 		<script src="libs/angular/angular.min.js"></script>
 		<script src="libs/angular-route/angular-route.min.js"></script>
 		<script src="libs/angular-touch/angular-touch.min.js"></script>
+		<script src="libs/angular-carousel/dist/angular-carousel.js"></script>
 		<script src="libs/jquery/dist/jquery.min.js"></script>
-		<script src="libs/Bootflat/js/bootstrap.min.js"></script>
-
+		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
 		<!-- ANGULAR CUSTOM -->
 		<script src="js/controllers/MatchesCtrl.js"></script>
 		<script src="js/services/MatchesService.js"></script>
 		<script src="js/appRoutes.js"></script>
 		<script src="js/app.js"></script>
-
 		<!-- FAVICON -->
 		<link rel="icon" type="image/png" href="/imgs/favicon.png">
 		<link rel="apple-touch-icon" href="/imgs/ball.png">
 	</head>
-
-	<body class="general" ng-app="sampleApp" ng-controller="MatchesController" 
-			ng-swipe-left="nextPage()" ng-swipe-right="prevPage()"
-			ng-keyup="onKeyUp($event)">	
+	<body class="general" id="my_sports_schedule"  ng-app="sampleApp" ng-controller="MatchesController" ng-keyup="onKeyUp($event)">
 		<!-- HEADER -->
 		<nav class="navbar navbar-default navbar-fixed-top normal shrink" role="navigation">
-  			<div class="container-fluid">
-    			<div class="navbar-header">
+			<div class="container-fluid">
+				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand">My Sports Schedule</a>
 				</div>
-				<!-- HEADER PAGINATION -->
+				<!-- DATE -->
 				<div class="col-md-4 col-md-offset-4 nav navbar-centered">
 					<ul class="pager">
-						<li class="previous" ng-style="{ visibility : currentPage == 0 ? 'hidden' : 'visible'}">
-							<a href ng-click="prevPage()"><<</a>
-						</li>
 						<li class="disabled">
-							<i class="fa fa-2x date-navbar">{{currentDay.date}}</i>
-						</li>
-						<li class="next" ng-style="{ visibility : currentPage == 2 ? 'hidden' : 'visible'}">
-							<a href ng-click="nextPage()">>></a>
+							<i class="fa fa-2x date-navbar">{{currentDate}}</i>
 						</li>
 					</ul>
 				</div>
-				<!-- CONDENSE BUTTON -->
+				<!-- CONFIGS -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
-	        			<li>
-							<div class="switch">
-								<span class="switch-label">Condense Results?</span>
-								<input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" ng-model="condense">
-								<label for="cmn-toggle-1"></label>
-							</div>
+						<li>
+							<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >
+								<!--<span class="glyphicon glyphicon-cog" padding-top="5px" aria-hidden="true"></span>-->
+								<span class="switch-label">Configuration</span>
+							</button>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</nav>
-
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Configuration</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-8 col-md-offset-2">
+								<div class="switch">
+									<input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" ng-model="condense">
+									<label for="cmn-toggle-1"></label>
+									<span class="switch-label">Condense Results?</span>
+								</div>
+								<div class="panel" ng-repeat="key in keys">
+									<div class="panel-heading header">
+										{{key}}
+										<span class="sign">
+										<input type="checkbox" ng-model="config.visibilities[key].visible">
+										</span>
+									</div>
+									<table class="table table-condensed" ng-show="config.visibilities[key].visible">
+										<thead>
+											<tr>
+												<th>Competition</th>
+												<th>Visible</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="item" align="center"  ng-repeat="(key_league, data) in config.visibilities[key].competitions">
+												<td>{{key_league}}</td>
+												<td>
+													<input type="checkbox" ng-model="config.visibilities[key].competitions[key_league]">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" ng-click="applyFilters()" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Carousel-->
 		<div class="container-fluid">
-			<div class="col-md-6 col-md-offset-3">
-				<ul class="pager">
-					<li class="previous" ng-style="{ visibility : currentPage == 0 ? 'hidden' : 'visible'}">	
-						<a href ng-click="prevPage()"><<</a>
-					</li>
-					<li class="disabled">
-						<i class="fa fa-2x date">{{currentDay.date}}</i>
-					</li>
-					<li class="next" ng-style="{ visibility : currentPage == 2 ? 'hidden' : 'visible'}">
-						<a href ng-click="nextPage()">>></a>
+			<div class="carousel">
+				<ul rn-carousel rn-carousel-index="carouselIndex" class="carousel1">
+					<li ng-repeat="day in days">
+						<!--DATE-->
+						<div class="col-md-6 col-md-offset-3">
+							<ul class="pager">
+								<li class="disabled">
+									<i class="fa fa-2x date">{{all[day].date}}</i>
+								</li>
+							</ul>
+						</div>
+						<!--Full Tables-->
+						<div class="col-md-6 col-md-offset-3 max_size" ng-hide="condense">
+							<div class="panel" ng-repeat="key in keys" ng-hide="!leagues[day].matches[key] || leagues[day].matches[key].length == 0 || leagues[day].matchCount[key] == 0">
+								<div class="panel-heading header">
+									{{key}}
+								</div>
+								<table class="table table-condensed">
+									<thead>
+										<tr>
+											<th>Time</th>
+											<th colspan="3">Teams</th>
+											<th class="hidden-xs">Competition</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="item" align="center" ng-repeat="match in leagues[day].matches[key]" ng-show="match.visible">
+											<td>{{match.time}}</td>
+											<td align="right" class="team">{{match.homeTeam}}</td>
+											<td align="center" class="separator"> - </td>
+											<td align="left" class="team">{{match.awayTeam}}</td>
+											<td class="hidden-xs">{{match.competition}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!--Condensed Tables-->
+						<div class = "condensed" ng-show="condense && all[day].matches.length > 0 && all[day].matchCount > 0">
+							<div class="col-md-6 col-md-offset-3">
+								<div class="panel">
+									<div class="panel-heading header">
+										All Matches
+									</div>
+									<table class="table table-condensed">
+										<thead>
+											<tr>
+												<th>Time</th>
+												<th colspan="3">Teams</th>
+												<th class="hidden-xs">Competition</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="item" align="center" ng-repeat="match in all[day].matches" ng-show="match.visible">
+												<td>{{match.time}}</td>
+												<td align="right" class="team">{{match.homeTeam}}</td>
+												<td align="center" class="separator"> - </td>
+												<td align="left" class="team">{{match.awayTeam}}</td>
+												<td class="hidden-xs">{{match.competition}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-md-offset-3" ng-show="all[day].matchCount < 1">
+							<ul class="pager">
+								<li class="disabled">
+									<i class="fa fa-2x date">No Matches Available!</i>
+								</li>
+							</ul>
+						</div>
 					</li>
 				</ul>
 			</div>
-			
-			<div class = "allLeagues" ng-hide="condense">
-				<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.POR.length == 0">
-					<div class="panel">
-						<div class="panel-heading header">
-									Portugal
-									<span class="sign">-</span>
-								</div>
-						<table class="table table-condensed">
-							<thead>
-							    <tr>
-									<th>Time</th>
-									<th colspan="3">Teams</th>
-									<th class="hidden-xs">Competition</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="item" align="center" ng-repeat="match in currentDay.POR">
-									<td>{{match.time}}</td>
-									<td align="right" class="team">{{match.homeTeam}}</td>
-									<td align="center" class="separator"> - </td>
-									<td align="left" class="team">{{match.awayTeam}}</td>
-									<td class="hidden-xs">{{match.competition}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.SPA.length == 0">
-					<div class="panel">
-						<div class="panel-heading header">
-									Spain
-									<span class="sign">-</span>
-								</div>
-						<table class="table table-condensed">
-							<thead>
-							    <tr>
-									<th>Time</th>
-									<th colspan="3">Teams</th>
-									<th class="hidden-xs">Competition</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="item" align="center" ng-repeat="match in currentDay.SPA">
-									<td>{{match.time}}</td>
-									<td align="right" class="team">{{match.homeTeam}}</td>
-									<td align="center" class="separator"> - </td>
-									<td align="left" class="team">{{match.awayTeam}}</td>
-									<td class="hidden-xs">{{match.competition}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.ENG.length == 0">
-					<div class="panel">
-						<div class="panel-heading header">
-									England
-									<span class="sign">-</span>
-								</div>
-						<table class="table table-condensed">
-							<thead>
-							    <tr>
-									<th>Time</th>
-									<th colspan="3">Teams</th>
-									<th class="hidden-xs">Competition</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="item" align="center" ng-repeat="match in currentDay.ENG">
-									<td>{{match.time}}</td>
-									<td align="right" class="team">{{match.homeTeam}}</td>
-									<td align="center" class="separator"> - </td>
-									<td align="left" class="team">{{match.awayTeam}}</td>
-									<td class="hidden-xs">{{match.competition}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.EUR.length == 0">
-					<div class="panel">
-						<div class="panel-heading header">
-									Europe
-									<span class="sign">-</span>
-								</div>
-						<table class="table table-condensed">
-							<thead>
-							    <tr>
-									<th>Time</th>
-									<th colspan="3">Teams</th>
-									<th class="hidden-xs">Competition</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="item" align="center" ng-repeat="match in currentDay.EUR">
-									<td>{{match.time}}</td>
-									<td align="right" class="team">{{match.homeTeam}}</td>
-									<td align="center" class="separator"> - </td>
-									<td align="left" class="team">{{match.awayTeam}}</td>
-									<td class="hidden-xs">{{match.competition}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="col-md-6 col-md-offset-3" ng-hide="currentDay.NBA.length == 0">
-					<div class="panel">
-						<div class="panel-heading header">
-									NBA
-									<span class="sign">-</span>
-								</div>
-						<table class="table table-condensed">
-							<thead>
-							    <tr>
-									<th>Time</th>
-									<th colspan="3">Teams</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="item" align="center" ng-repeat="match in currentDay.NBA">
-									<td>{{match.time}}</td>
-									<td align="right" class="team">{{match.homeTeam}}</td>
-									<td align="center" class="separator"> @ </td>
-									<td align="left" class="team">{{match.awayTeam}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-
-			<div class = "condensed" ng-show="condense">
-				<div class="col-md-6 col-md-offset-3">
-					<div class="panel">
-						<div class="panel-heading header">
-							All Matches
-							<span class="sign">-</span>
-						</div>
-						<table class="table table-condensed">
-							<thead>
-							    <tr>
-									<th>Time</th>
-									<th colspan="3">Teams</th>
-									<th class="hidden-xs">Competition</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="item" align="center" ng-repeat="match in currentAll">
-									<td>{{match.time}}</td>
-									<td align="right" class="team">{{match.homeTeam}}</td>
-									<td align="center" class="separator"> - </td>
-									<td align="left" class="team">{{match.awayTeam}}</td>
-									<td class="hidden-xs">{{match.competition}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
+			<!-- Carousel Controls -->
+			<div class="controls">
+				<a class="left carousel-control hidden-xs" ng-style="{ visibility : carouselIndex == 0 ? 'hidden' : 'visible'}" role="button" data-slide="prev" ng-click="prevPage()">
+					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="right carousel-control hidden-xs" ng-style="{ visibility : carouselIndex == 2 ? 'hidden' : 'visible'}" role="button" data-slide="next" ng-click="nextPage()">
+					<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
 			</div>
 		</div>
 		<script src="js/custom.js"></script>
